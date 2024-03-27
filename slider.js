@@ -9,6 +9,7 @@ class CustomSlider {
         this.max = max;
         this.value = def ?? 0;
         this.step = step ?? 1;
+        this.onUpdate = () => {};
     }
 
     init() {
@@ -26,7 +27,7 @@ class CustomSlider {
         let textMin = createP(this.min);
         textMin.parent(sliderDiv);
         
-        this.slider = createSlider(this.min, this.max, this.default, this.step);
+        this.slider = createSlider(this.min, this.max, this.value, this.step);
         this.slider.parent(sliderDiv);
         this.slider.size(80);
 
@@ -35,6 +36,7 @@ class CustomSlider {
     }
 
     update() {
-        this.text.html(`${this.label} (${this.slider.value()})`)
+        this.text.html(`${this.label} (${this.slider.value()})`);
+        this.onUpdate();
     }
 }

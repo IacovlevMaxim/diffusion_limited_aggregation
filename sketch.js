@@ -11,6 +11,7 @@ let hu = 0;
 let shrink = 0.995;
 let slider;
 let dropdown;
+let frames;
 
 function setup() {
   dropdown = createSelect();
@@ -25,8 +26,17 @@ function setup() {
   textSize(32);
   textAlign(CENTER, CENTER);
 
-  slider = new CustomSlider("testing", 800, 150, 0, 255);
+  frames = 30;
+  frameRate(frames)
+  slider = new CustomSlider("testing", 800, 150, 1, 60, frames);
   slider.init();
+  slider.onUpdate = () => {
+    if(slider.slider.value() != frames) {
+      console.log(slider.slider.value());
+      frameRate(slider.slider.value());
+      frames = slider.slider.value()
+    }
+  }
 
   tree[0] = new Walker(width / 2, height / 2);
   radius *= shrink;
