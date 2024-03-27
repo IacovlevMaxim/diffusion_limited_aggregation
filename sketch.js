@@ -10,11 +10,17 @@ let radius = 8;
 let hu = 0;
 let shrink = 0.995;
 let slider;
+let dropdown;
 
 function setup() {
+  dropdown = createSelect();
+  dropdown.parent("dropdown");
+  dropdown.option("variant 1");
+  dropdown.option("variant 2");
+  dropdown.class("dropdown");
+
   const cnv = createCanvas(640, 640);
-  // cnv.position(50, 100);
-  cnv.parent("main");
+  cnv.parent("dropdown");
 
   textSize(32);
   textAlign(CENTER, CENTER);

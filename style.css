@@ -21,13 +21,29 @@ p {
   align-items: center;
 }
 
+.dropdown {
+  justify-content: center;
+  align-items: center;
+  margin: 25px;
+  width: 20% !important;
+  text-align-last:center;
+}
+
 .subslider {
   display: flex;
   flex-direction: row;
+}
+
+#master {
+  display: flex;
+  margin-top: 5vw;
+  flex-direction: column;
 }
 
 #main {
   display: flex; 
   flex-direction: row;
   gap: 10vw;
+  margin-left: 5vw;
+  /* margin-top: 7.5vw; */
 }
