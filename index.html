@@ -4,18 +4,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.sound.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./tailwind.css"> -->
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <!-- <link href=”https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css” rel=”stylesheet”> -->
     <meta charset="utf-8" />
 
   </head>
   <body>
-    <script src="walker.js"></script>
-    <script src="slider.js"></script>
-    <script src="sketch.js"></script>
-    <div id="master">
-      <div id="main">
-        <div id="dropdown" class="slider"></div>
-      </div>
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+            <h1 class="text-2xl font-bold my-4">Diffusion Limited Aggregation</h1>
+        </div>
+        <div class="mt-8">
+            <!-- Template -->
+            <!-- <div class="flex flex-col md:flex-row border-b border-gray-400 py-4">
+                <div class="flex-shrink-0">
+                    <img src="images/IMAGE.png" alt="NAME image" class="w-32 h-32 object-cover">
+                </div>
+                <div class="mt-4 md:mt-0 md:ml-6">
+                    <h2 class="text-lg font-bold">TITLE</h2>
+                    <p class="mt-2 text-gray-600">DESCRIPTION</p>
+                    <button class="bg-indigo-500 hover:bg-indigo-700 mt-2 text-white font-bold py-2 px-4 rounded"
+                        onclick="location.href=location.origin + location.pathname.slice(0,location.pathname.lastIndexOf('/')) + '/presets/FOLDER/index.html'" type="button">
+                        Open
+                    </button>
+                </div>
+            </div> -->
+            <div class="flex flex-col md:flex-row border-b border-gray-400 py-4">
+                <div class="flex-shrink-0">
+                    <img src="images/copper_oxidation.png" alt="Copper Oxidaiton image" class="w-32 h-32 object-cover">
+                </div>
+                <div class="mt-4 md:mt-0 md:ml-6">
+                    <h2 class="text-lg font-bold">Copper Oxidation</h2>
+                    <p class="mt-2 text-gray-600">Diffusion-limited aggregation process for plane copper oxidation</p>
+                    <button class="bg-indigo-500 hover:bg-indigo-700 mt-2 text-white font-bold py-2 px-4 rounded"
+                        onclick="location.href=location.origin + location.pathname.slice(0,location.pathname.lastIndexOf('/')) + '/presets/copper_oxidation/index.html'" type="button">
+                        Open
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
   </body>
 </html>
