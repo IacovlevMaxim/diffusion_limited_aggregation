@@ -53,21 +53,21 @@ class Walker {
 function randomPoint() {
   var i = floor(random(4));
   
-  return createVector(width * Math.random(), height * Math.random())
+  // return createVector(width * Math.random(), height * Math.random())
 
-  // if (i === 0) {
-  //   let x = width * Math.random();
-  //   return createVector(x, 0);
-  // } else if (i === 1) {
-  //   let x = width * Math.random();
-  //   return createVector(x, height);
-  // } else if (i === 2) {
-  //   let y = height * Math.random();
-  //   return createVector(0, y);
-  // } else {
-  //   let y = height * Math.random();
-  //   return createVector(width, y);
-  // }
+  if (i === 0) {
+    let x = width * Math.random();
+    return createVector(x, 0);
+  } else if (i === 1) {
+    let x = width * Math.random();
+    return createVector(x, height);
+  } else if (i === 2) {
+    let y = height * Math.random();
+    return createVector(0, y);
+  } else {
+    let y = height * Math.random();
+    return createVector(width, y);
+  }
 }
 
 
