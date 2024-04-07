@@ -32,10 +32,10 @@ function setup() {
   frameSlider = new CustomSlider("Frame Rate", 800, 150, 1, 60, frames);
   frameSlider.init();
   frameSlider.onUpdate = () => {
-    if(frameSlider.slider.value() != frames) {
-      console.log(frameSlider.slider.value());
-      frameRate(frameSlider.slider.value());
-      frames = frameSlider.slider.value()
+    if(frameSlider.getValue() != frames) {
+      console.log(frameSlider.getValue());
+      frameRate(frameSlider.getValue());
+      frames = frameSlider.getValue()
     }
   }
 

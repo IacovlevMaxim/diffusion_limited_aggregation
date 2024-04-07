@@ -35,6 +35,10 @@ class CustomSlider {
         textMax.parent(sliderDiv);
     }
 
+    getValue() {
+        return this.slider.value();
+    }
+
     update() {
         this.text.html(`${this.label} <br /> (${this.slider.value()})`);
         this.onUpdate();
