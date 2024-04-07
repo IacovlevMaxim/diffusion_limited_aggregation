@@ -24,6 +24,8 @@ class Walker {
 
   checkStuck(others) {
     for (var i = 0; i < others.length; i++) {
+      if(this.r > others[i].r) continue;
+
       let d = distSq(this.pos, others[i].pos);
       if (d < (this.r + others[i].r) ** 2) {
         this.stuck = true;
@@ -42,7 +44,7 @@ class Walker {
     if (this.stuck && typeof this.hu !== 'undefined') {
       fill(this.hu, 255, 100, 200);
     } else {
-      fill(360, 0, 255);
+      fill(360, 0, 100);
     }
     ellipse(this.pos.x, this.pos.y, this.r * 2, this.r * 2);
   }

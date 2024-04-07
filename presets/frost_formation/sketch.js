@@ -4,11 +4,12 @@
 let tree = [];
 let walkers = [];
 //var r = 4;
-let maxWalkers = 100;
+let maxWalkers = 200;
 let iterations = 1000;
-let radius = 8;
+let radius = 4;
 let hu = 0;
 let shrink = 0.995;
+const frostRadius = 200;
 
 // function setup() {
 //   createCanvas(windowWidth, windowHeight);
@@ -39,12 +40,24 @@ function randBorderPoint(seed) {
   }
 }
 
+function randCirclePoint() {
+  const angle = Math.random() * TWO_PI;
+  const d = Math.random() * frostRadius;
+  const x = d * Math.cos(angle);
+  const y = d * Math.sin(angle);
+  return [x + width / 2, y + height / 2];
+}
+
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(640, 640);
   colorMode(HSB);
 
-  for(let i = 0;i < 100;i++) {
-    [x, y] = randBorderPoint(i);
+  const iterations = 100;
+  for(let i = 0;i < iterations;i++) {
+    // [x, y] = randBorderPoint(i);
+    const angle = TWO_PI * i / iterations;
+    x = frostRadius * Math.cos(angle) + width / 2;
+    y = frostRadius * Math.sin(angle) + height / 2;
     w = new Walker(x, y);
     tree[i] = w;
   }
@@ -52,7 +65,8 @@ function setup() {
   
   radius *= shrink;
   for (var i = 0; i < maxWalkers; i++) {
-    walkers[i] = new Walker();
+    [x, y] = randCirclePoint();
+    walkers[i] = new Walker(x, y);
     // radius *= shrink;
   }
 }
@@ -64,9 +78,9 @@ function draw() {
     tree[i].show();
   }
 
-  for (let i = 0; i < walkers.length; i++) {
-    walkers[i].show();
-  }
+  // for (let i = 0; i < walkers.length; i++) {
+  //   walkers[i].show();
+  // }
 
   for (let n = 0; n < iterations; n++) {
     for (let i = walkers.length - 1; i >= 0; i--) {
@@ -81,7 +95,8 @@ function draw() {
   var r = walkers[walkers.length - 1]?.r;
   while (walkers.length < maxWalkers && radius > 1) {
     radius *= shrink;
-    walkers.push(new Walker());
+    [x, y] = randCirclePoint();
+    walkers.push(new Walker(x, y));
   }
 
 }
