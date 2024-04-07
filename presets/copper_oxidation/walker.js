@@ -11,6 +11,7 @@ class Walker {
       this.stuck = false;
     }
     this.r = radius;
+    this.hits = 0;
   }
 
   walk() {
@@ -21,12 +22,23 @@ class Walker {
   }
 
 
-  checkStuck(others) {
+  checkStuck(others, stickyRate = 1, hitRate = 0) {
     for (var i = 0; i < others.length; i++) {
       let d = distSq(this.pos, others[i].pos);
       if (d < (this.r + others[i].r) ** 2) {
-        this.stuck = true;
-        return true;
+        if(stickyRate < 1 && stickyRate > 0) {
+          if(Math.random() < stickyRate) {
+            this.stuck = true;
+            return true;
+          }
+        }
+        if(hitRate > 0) {
+          this.hits++;
+          if(this.hits >= hitRate) {
+            this.stuck = true;
+            return true;
+          }
+        }
       }
     }
     return false;

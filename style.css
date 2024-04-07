@@ -34,6 +34,12 @@ p {
   flex-direction: row;
 }
 
+#sliders {
+  display: grid;
+  align-items: center;
+  flex-direction: row;
+}
+
 #master {
   display: flex;
   margin-top: 5vw;

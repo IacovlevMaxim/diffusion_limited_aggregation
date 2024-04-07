@@ -14,7 +14,7 @@ class CustomSlider {
 
     init() {
         this.div = createDiv();
-        this.div.parent('main');
+        this.div.parent('sliders');
         this.div.class("slider");
 
         this.text = createP(`${this.label} (${this.value})`);
@@ -36,7 +36,7 @@ class CustomSlider {
     }
 
     update() {
-        this.text.html(`${this.label} (${this.slider.value()})`);
+        this.text.html(`${this.label} <br /> (${this.slider.value()})`);
         this.onUpdate();
     }
 }
