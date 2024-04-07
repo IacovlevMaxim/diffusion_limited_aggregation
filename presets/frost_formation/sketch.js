@@ -1,29 +1,19 @@
-// Daniel Shiffman
-// https://thecodingtrain.com/CodingChallenges/034-dla
-
 let tree = [];
 let walkers = [];
-//var r = 4;
 let maxWalkers = 200;
 let iterations = 1000;
 let radius = 4;
 let hu = 0;
 let shrink = 0.995;
-const frostRadius = 200;
+let frostRadius = 200;
+let frostIterations = 100;
 
-// function setup() {
-//   createCanvas(windowWidth, windowHeight);
-//   colorMode(HSB);
 
-//   w = new Walker(width / 2, height / 2);
-//   w.setHue(hue % 360);
-//   tree[0] = w;
-//   radius *= shrink;
-//   for (var i = 0; i < maxWalkers; i++) {
-//     walkers[i] = new Walker();
-//     radius *= shrink;
-//   }
-// }
+let maxWalkersSlider;
+let frostRadiusSlider;
+let radiusSlider;
+let stickySlider;
+let resetButton;
 
 function randBorderPoint(seed) {
   if(seed % 4 == 0) {
@@ -48,14 +38,15 @@ function randCirclePoint() {
   return [x + width / 2, y + height / 2];
 }
 
-function setup() {
-  createCanvas(640, 640);
-  colorMode(HSB);
+function restart() {
+  console.log("restart");
+  radius = 4;
 
-  const iterations = 100;
-  for(let i = 0;i < iterations;i++) {
-    // [x, y] = randBorderPoint(i);
-    const angle = TWO_PI * i / iterations;
+  tree = [];
+  walkers = [];
+
+  for(let i = 0;i < frostIterations;i++) {
+    const angle = TWO_PI * i / frostIterations;
     x = frostRadius * Math.cos(angle) + width / 2;
     y = frostRadius * Math.sin(angle) + height / 2;
     w = new Walker(x, y);
@@ -67,12 +58,60 @@ function setup() {
   for (var i = 0; i < maxWalkers; i++) {
     [x, y] = randCirclePoint();
     walkers[i] = new Walker(x, y);
-    // radius *= shrink;
   }
+}
+
+function setup() {
+  const cnv = createCanvas(640, 640);
+  cnv.parent("dropdown");
+  colorMode(HSB);
+  frameRate(60);
+
+  maxWalkersSlider = new CustomSlider("Walkers", 0, 0, 10, 200, 100, 1);
+  maxWalkersSlider.init();
+  maxWalkersSlider.onUpdate = () => {
+    if(maxWalkersSlider.getValue() != maxWalkers) {
+      maxWalkers = maxWalkersSlider.getValue()
+    }
+  }
+
+  frostRadiusSlider = new CustomSlider("Circle Radius", 0, 0, 100, width / 2, 200, 1);
+  frostRadiusSlider.init();
+  frostRadiusSlider.onUpdate = () => {
+    if(frostRadiusSlider.getValue() != frostRadius) {
+      frostRadius = frostRadiusSlider.getValue()
+    }
+  }
+
+  radiusSlider = new CustomSlider("Walker Radius", 0, 0, 1, 8, 4, 0.05);
+  radiusSlider.init();
+  radiusSlider.onUpdate = () => {
+    console.log(Math.abs(radiusSlider.getValue() / shrink - radius));
+    if(Math.abs(radiusSlider.getValue() / shrink - radius) < 0.3) {
+      radiusSlider.slider.value(radius);
+    } else {
+      radius = radiusSlider.getValue();
+    }
+  }
+
+  stickySlider = new CustomSlider("Sticking Coefficient", 800, 150, 0, 1, 0.5, 0.01);
+  stickySlider.init();
+
+  resetButton = new CustomButton("Reset", 0, 0);
+  resetButton.init();
+  resetButton.onClicked = restart;
+
+  restart();
 }
 
 function draw() {
   background(0);
+
+  resetButton.update();
+  maxWalkersSlider.update();
+  frostRadiusSlider.update();
+  radiusSlider.update();
+  stickySlider.update();
 
   for (let i = 0; i < tree.length; i++) {
     tree[i].show();
@@ -85,7 +124,7 @@ function draw() {
   for (let n = 0; n < iterations; n++) {
     for (let i = walkers.length - 1; i >= 0; i--) {
       walkers[i].walk();
-      if (walkers[i].checkStuck(tree)) {
+      if (walkers[i].checkStuck(tree, stickySlider.slider.value())) {
         tree.push(walkers[i]);
         walkers.splice(i, 1);
       }
