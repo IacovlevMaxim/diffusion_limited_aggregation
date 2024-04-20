@@ -4,6 +4,8 @@ html, body {
 }
 canvas {
   display: block;
+  /* border-radius: 50px; */
+
 }
 
 p {
@@ -32,7 +34,6 @@ p {
   flex-direction: row;
   gap: 10vw;
   margin-left: 5vw;
-  /* margin-top: 7.5vw; */
 }
 
 .slider {
@@ -98,7 +99,7 @@ input[type="range"] {
   appearance: none;
   width: 20px;
   height: 20px;
-  background: #4CAF50; /* Slider handle color */
+  background: #6366f1; /* Slider handle color */
   cursor: pointer;
   border-radius: 50%; /* Make it round */
 }
@@ -123,7 +124,7 @@ input[type="range"]::-moz-range-thumb {
   appearance: none;
   width: 20px;
   height: 20px;
-  background: #4CAF50;
+  background: #6366f1;
   cursor: pointer;
   border-radius: 50%; /* Set border-radius to make it round */
   border: none; /* Remove any default border */
@@ -145,7 +146,7 @@ input[type="range"]::-moz-range-thumb {
 /* Style for button element */
 .button-element {
   padding: 10px 20px; /* Adjust padding as needed */
-  background-color: #4CAF50; /* Button background color */
+  background-color: #6366f1; /* Button background color */
   color: white; /* Button text color */
   border: none; /* Remove button border */
   border-radius: 5px; /* Rounded button corners */
