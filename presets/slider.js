@@ -11,30 +11,41 @@ class CustomSlider {
         this.step = step ?? 1;
         this.onUpdate = () => {};
     }
-
     init() {
         this.div = createDiv();
         this.div.parent('sliders');
-        this.div.class("slider");
-
+        this.div.class("slider-container");
+    
+        let labelDiv = createDiv();
+        labelDiv.parent(this.div);
+        labelDiv.class("label");
+    
         this.text = createP(`${this.label} (${this.value})`);
-        this.text.parent(this.div);
-
-        let sliderDiv = createDiv();
-        sliderDiv.parent(this.div);
-        sliderDiv.class("subslider");
-
+        this.text.parent(labelDiv);
+    
+        let sliderWrapper = createDiv(); // Create a wrapper for the slider
+        sliderWrapper.parent(this.div);
+        sliderWrapper.class("slider-wrapper");
+    
+        // Create a grid container for min value, track, and max value
+        let gridContainer = createDiv();
+        gridContainer.parent(sliderWrapper);
+        gridContainer.class("slider-grid");
+    
         let textMin = createP(this.min);
-        textMin.parent(sliderDiv);
-        
+        textMin.parent(gridContainer);
+        textMin.class("slider-value");
+    
         this.slider = createSlider(this.min, this.max, this.value, this.step);
-        this.slider.parent(sliderDiv);
-        this.slider.size(80);
-
+        this.slider.parent(gridContainer);
+        this.slider.class("slider-element");
+    
         let textMax = createP(this.max);
-        textMax.parent(sliderDiv);
+        textMax.parent(gridContainer);
+        textMax.class("slider-value");
+        // textMin.style("justify-content", "flex-end"); 
     }
-
+       
     getValue() {
         return this.slider.value();
     }

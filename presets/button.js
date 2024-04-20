@@ -9,13 +9,13 @@ class CustomButton {
     }
 
     init() {
-        this.button = createButton(this.label);
-
         this.div = createDiv();
         this.div.parent('sliders');
-        this.div.class("button");
-
+        this.div.class("button-container"); 
+        
+        this.button = createButton(this.label);
         this.button.parent(this.div);
+        this.button.class("button-element"); 
     }
 
     update() {
