@@ -23,7 +23,7 @@ p {
 
 #master {
   display: flex;
-  /* margin-top: 5vw; */
+  margin-top: 3vw;
   flex-direction: column;
 }
 
