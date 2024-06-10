@@ -3,9 +3,15 @@ let space = 5;
 let numx;
 let numy;
 let Ccolor = [];
+let isRecording = false;
 
 function setup() {
   createCanvas(640, 640);
+  const button = document.getElementById("download");
+  button.addEventListener("click", () => {
+      button.textContent = "Download GIF";
+      downloadGif();
+  });
   numx = int(width / space) + space;
   console.log("numx ", numx);
   numy = int(height / space);
@@ -24,6 +30,7 @@ function setup() {
 }
 
 function draw() {
+  if (isRecording) {
   background(0);
   for (let cycles = 0; cycles < 4; cycles++) {
     let xcor = int(random(1, numx - 3));
@@ -62,7 +69,19 @@ function draw() {
         noStroke();
         fill(Ccolor[x][y]);
         rect(x * space - space, y * space, space, space);
+        }
       }
     }
+  }
+}
+
+function downloadGif() {
+  if (isRecording) {
+    // Stop recording if already recording    
+    saveGif("myAnimation.gif", frameCount / 60); // Download GIF with duration based on frame count
+    isRecording = false;
+  } else {
+    // Start recording if not already recording
+    isRecording = true;
   }
 }

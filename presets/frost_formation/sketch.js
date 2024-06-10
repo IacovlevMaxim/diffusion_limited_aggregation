@@ -8,7 +8,7 @@ let shrink = 0.995;
 let frostRadius = 200;
 let frostIterations = 100;
 
-
+let isRecording = false;
 let maxWalkersSlider;
 let frostRadiusSlider;
 let radiusSlider;
@@ -67,6 +67,12 @@ function setup() {
   colorMode(HSB);
   frameRate(60);
 
+  const button = document.getElementById("download");
+  button.addEventListener("click", () => {
+      button.textContent = "Download GIF";
+      downloadGif();
+  });
+
   maxWalkersSlider = new CustomSlider("Walkers", 0, 0, 10, 200, 100, 1);
   maxWalkersSlider.init();
   maxWalkersSlider.onUpdate = () => {
@@ -106,7 +112,7 @@ function setup() {
 
 function draw() {
   background(0);
-
+  if (isRecording) {
   resetButton.update();
   maxWalkersSlider.update();
   frostRadiusSlider.update();
@@ -138,4 +144,16 @@ function draw() {
     walkers.push(new Walker(x, y));
   }
 
+}
+}
+
+function downloadGif() {
+  if (isRecording) {
+    // Stop recording if already recording    
+    saveGif("myAnimation.gif", frameCount / 60); // Download GIF with duration based on frame count
+    isRecording = false;
+  } else {
+    // Start recording if not already recording
+    isRecording = true;
+  }
 }
