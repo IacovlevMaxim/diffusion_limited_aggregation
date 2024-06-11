@@ -204,7 +204,9 @@ class Particle extends Quadtree.Circle {
   }
 
   displayRecurse(level = 0) {
-    stroke(60, 20 + level * 1.5, 100 - level);
+    // stroke((level * 2) % 360, 0, 100 - level);
+    stroke(60, 30 + level * 1.5, 100 - level);
+
     if (this.children.length > 0) {
       for (let child of this.children) {
         line(this.x, this.y, child.x, child.y);

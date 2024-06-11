@@ -1,13 +1,3 @@
-
-
-
-
-
-
-
-// Daniel Shiffman
-// https://thecodingtrain.com/CodingChallenges/034-dla
-
 class Walker {
   constructor(x, y) {
     if (arguments.length == 2) {
