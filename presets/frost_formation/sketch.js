@@ -14,6 +14,8 @@ let frostRadiusSlider;
 let radiusSlider;
 let stickySlider;
 let resetButton;
+let recFrames;
+let recSlider;
 
 function randBorderPoint(seed) {
   if(seed % 4 == 0) {
@@ -68,10 +70,17 @@ function setup() {
   frameRate(60);
 
   const button = document.getElementById("download");
-  button.addEventListener("click", () => {
-      button.textContent = "Download GIF";
-      downloadGif();
-  });
+  button.addEventListener("click", () => downloadGif(recFrames));
+
+  recFrames = 1000;
+  recSlider = new CustomSlider("Record Frames", 0, 0, 100, 1800, recFrames);
+  recSlider.init();
+  recSlider.onUpdate = () => {
+    if (recSlider.getValue() != recFrames) {
+      console.log(recSlider.getValue());
+      recFrames = recSlider.getValue();
+    }
+  };
 
   maxWalkersSlider = new CustomSlider("Walkers", 0, 0, 10, 200, 100, 1);
   maxWalkersSlider.init();
@@ -112,12 +121,12 @@ function setup() {
 
 function draw() {
   background(0);
-  if (isRecording) {
   resetButton.update();
   maxWalkersSlider.update();
   frostRadiusSlider.update();
   radiusSlider.update();
   stickySlider.update();
+  recSlider.update();
 
   for (let i = 0; i < tree.length; i++) {
     tree[i].show();
@@ -142,18 +151,5 @@ function draw() {
     radius *= shrink;
     [x, y] = randCirclePoint();
     walkers.push(new Walker(x, y));
-  }
-
-}
-}
-
-function downloadGif() {
-  if (isRecording) {
-    // Stop recording if already recording    
-    saveGif("myAnimation.gif", frameCount / 60); // Download GIF with duration based on frame count
-    isRecording = false;
-  } else {
-    // Start recording if not already recording
-    isRecording = true;
   }
 }
