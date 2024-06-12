@@ -15,7 +15,7 @@ class CustomButton {
         
         this.button = createButton(this.label);
         this.button.parent(this.div);
-        this.button.class("button-element"); 
+        this.button.class("button-element download"); 
     }
 
     update() {
