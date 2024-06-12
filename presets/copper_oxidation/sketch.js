@@ -9,20 +9,29 @@ let frameSlider;
 let dropdown;
 let frames;
 let stickySlider;
-let isRecording = false;
+let recFrames;
+let recSlider;
+let isRecording = true;
 
 function setup() {
   const cnv = createCanvas(640, 640);
   const button = document.getElementById("download");
-  button.addEventListener("click", () => {
-      button.textContent = "Download GIF";
-      downloadGif();
-  });
+  button.addEventListener("click", () => downloadGif(recFrames));
 
   cnv.parent("dropdown");
 
   textSize(32);
   textAlign(CENTER, CENTER);
+
+  recFrames = 1000;
+  recSlider = new CustomSlider("Record Frames", 0, 0, 100, 1800, recFrames);
+  recSlider.init();
+  recSlider.onUpdate = () => {
+    if (recSlider.getValue() != recFrames) {
+      console.log(recSlider.getValue());
+      recFrames = recSlider.getValue();
+    }
+  };
 
   frames = 30;
   frameRate(frames);
@@ -52,6 +61,7 @@ function draw() {
   if (isRecording) {
   frameSlider.update();
   stickySlider.update();
+  recSlider.update();
 
   for (let i = 0; i < tree.length; i++) {
     tree[i].show();
@@ -78,16 +88,5 @@ function draw() {
   while (walkers.length < maxWalkers && radius > 1) {
     radius *= shrink;
     walkers.push(new Walker());
-  }
-}
-
-function downloadGif() {
-  if (isRecording) {
-    // Stop recording if already recording    
-    saveGif("myAnimation.gif", frameCount / 60); // Download GIF with duration based on frame count
-    isRecording = false;
-  } else {
-    // Start recording if not already recording
-    isRecording = true;
   }
 }
