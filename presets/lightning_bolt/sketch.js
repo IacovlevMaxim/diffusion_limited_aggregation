@@ -1,12 +1,18 @@
-const SPEED = 4;
-const SIZE = 22;
+let SPEED = 4;
+let SIZE = 22;
 const COUNT = 1000;
-const FRAME_COUNT = 150;
 const ROUNDS = 1;
-const GEN_RATE = 1;
+let GEN_RATE = 500;
 const AGEOUT = 1000;
 let isRecording = false;
 let trig_points = [];
+let frames;
+let genSlider;
+let framesSlider;
+let speedSlider;
+let sizeSlider;
+let recFrames = 1000;
+let recSlider;
 
 let tree,
   world,
@@ -31,10 +37,62 @@ function randTrianglePoint(v1, v2, v3) {
 }
 
 function setup() {
-  createCanvas(640, 640);
-  colorMode(HSB);
+  const cnv = createCanvas(640, 640);
   const button = document.getElementById("download");
-  button.addEventListener("click", downloadGif);
+  button.addEventListener("click", () => downloadGif(recFrames));
+
+  cnv.parent("dropdown");
+  colorMode(HSB);
+
+  recFrames = 1000;
+  recSlider = new CustomSlider("Record Frames", 0, 0, 100, 1800, recFrames);
+  recSlider.init();
+  recSlider.onUpdate = () => {
+    if (recSlider.getValue() != recFrames) {
+      console.log(recSlider.getValue());
+      recFrames = recSlider.getValue();
+    }
+  };
+
+  frames = 30;
+  frameRate(frames);
+  frameSlider = new CustomSlider("Frame Rate", 0, 0, 1, 60, frames);
+  frameSlider.init();
+  frameSlider.onUpdate = () => {
+    if (frameSlider.getValue() != frames) {
+      console.log(frameSlider.getValue());
+      frameRate(frameSlider.getValue());
+      frames = frameSlider.getValue();
+    }
+  };
+
+  genSlider = new CustomSlider("Ignite Rate", 0, 0, 1, 1000, GEN_RATE);
+  genSlider.init();
+  genSlider.onUpdate = () => {
+    if (genSlider.getValue() != GEN_RATE) {
+      console.log(genSlider.getValue());
+      GEN_RATE = genSlider.getValue();
+    }
+  };
+
+  speedSlider = new CustomSlider("Speed", 0, 0, 1, 8, SPEED);
+  speedSlider.init();
+  speedSlider.onUpdate = () => {
+    if (speedSlider.getValue() != SPEED) {
+      console.log(speedSlider.getValue());
+      SPEED = speedSlider.getValue();
+    }
+  };
+
+  sizeSlider = new CustomSlider("Size", 0, 0, 4, 32, SIZE);
+  sizeSlider.init();
+  sizeSlider.onUpdate = () => {
+    if (sizeSlider.getValue() != SPEED) {
+      console.log(sizeSlider.getValue());
+      SIZE = sizeSlider.getValue();
+    }
+  };
+
 
   qt = new Quadtree({
     width,
@@ -66,8 +124,12 @@ let done = false;
 let seeded = false;
 
 function draw() {
-  if (isRecording) {
     background(0);
+    frameSlider.update();
+    genSlider.update();
+    speedSlider.update();
+    sizeSlider.update();
+    recSlider.update();
 
     qt.clear();
 
@@ -97,21 +159,7 @@ function draw() {
     }
 
     gen++;
-  }
-}
-
-function downloadGif() {
-  const button = document.getElementById("download");
-  if (isRecording) {
-    // Stop recording and save the GIF
-    saveGif("myAnimation.gif", FRAME_COUNT / 60); // Adjust FRAME_COUNT for proper duration
-    isRecording = false;
-    button.textContent = "Start Recording GIF";
-  } else {
-    // Start recording
-    isRecording = true;
-    button.textContent = "Stop Recording GIF";
-  }
+  
 }
 
 function mousePressed() {

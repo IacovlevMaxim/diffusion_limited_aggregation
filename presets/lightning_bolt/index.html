@@ -3,9 +3,9 @@
   <head>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@timohausmann/quadtree-ts/dist/quadtree.umd.full.js"></script>
-    <script src="https://unpkg.com/p5.webm-capture@1.2.0/dist/p5.webm-capture.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/antiboredom/p5.gif.js/p5.gif.min.js"></script>
+    <script src="https://unpkg.com/p5.webm-capture@1.2.0/dist/p5.webm-capture.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.sound.js"></script>
     <script? src="https://cdnjs.cloudflare.com/ajax/libs/ccapture.js/1.1.4/CCapture.min.js"></script>
@@ -14,7 +14,18 @@
     <meta charset="utf-8" />
   </head>
   <body id="master">
-    <button id="download">Start Animation</button>
-    <script src="sketch.js"></script>
+    <main>
+      <script src="../downloadGif.js"></script>
+      <script src="sketch.js"></script>
+      <script src="../slider.js"></script>
+      <div id="master">
+        <div id="main">
+          <div id="dropdown" class="slider"></div>
+          <div id="sliders">
+            <button class="dwn-btn" id="download" >Save as GIF</button>
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
 </html>
